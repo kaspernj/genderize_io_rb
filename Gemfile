@@ -6,7 +6,6 @@ source "http://rubygems.org"
 gem "http2"
 gem "json"
 gem "string-cases"
-gem "baza", "0.0.12"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
@@ -16,4 +15,5 @@ group :development do
   gem "bundler", ">= 1.0.0"
   gem "jeweler", :git => "https://github.com/technicalpickles/jeweler.git"
   gem "sqlite3"
+  gem "baza", "0.0.12"
 end
