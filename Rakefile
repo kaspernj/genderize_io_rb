@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "genderize_io_rb"
   gem.homepage = "http://github.com/kaspernj/genderize_io_rb"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{A small Gem that makes it possible to determine gender from a name via the Genderize.io service.}
+  gem.description = %Q{A small Gem that makes it possible to determine gender from a name via the Genderize.io service.}
   gem.email = "kaspernj@gmail.com"
   gem.authors = ["Kasper Johansen"]
   # dependencies defined in Gemfile
