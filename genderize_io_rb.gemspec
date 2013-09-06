@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "genderize_io_rb"
-  s.version = "0.0.6"
+  s.version = "0.0.7"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kasper Johansen"]
@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
     "VERSION",
     "genderize_io_rb.gemspec",
     "include/database_schema.rb",
+    "include/errors.rb",
     "include/result.rb",
     "lib/genderize_io_rb.rb",
     "spec/genderize_io_rb_spec.rb",
