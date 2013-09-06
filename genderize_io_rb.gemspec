@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "genderize_io_rb"
-  s.version = "0.0.4"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kasper Johansen"]
@@ -25,6 +25,8 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "genderize_io_rb.gemspec",
+    "include/database_schema.rb",
     "include/result.rb",
     "lib/genderize_io_rb.rb",
     "spec/genderize_io_rb_spec.rb",
@@ -43,27 +45,33 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<http2>, [">= 0"])
       s.add_runtime_dependency(%q<json>, [">= 0"])
       s.add_runtime_dependency(%q<string-cases>, [">= 0"])
+      s.add_runtime_dependency(%q<baza>, ["= 0.0.12"])
       s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<bundler>, [">= 1.0.0"])
       s.add_development_dependency(%q<jeweler>, [">= 0"])
+      s.add_development_dependency(%q<sqlite3>, [">= 0"])
     else
       s.add_dependency(%q<http2>, [">= 0"])
       s.add_dependency(%q<json>, [">= 0"])
       s.add_dependency(%q<string-cases>, [">= 0"])
+      s.add_dependency(%q<baza>, ["= 0.0.12"])
       s.add_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<bundler>, [">= 1.0.0"])
       s.add_dependency(%q<jeweler>, [">= 0"])
+      s.add_dependency(%q<sqlite3>, [">= 0"])
     end
   else
     s.add_dependency(%q<http2>, [">= 0"])
     s.add_dependency(%q<json>, [">= 0"])
     s.add_dependency(%q<string-cases>, [">= 0"])
+    s.add_dependency(%q<baza>, ["= 0.0.12"])
     s.add_dependency(%q<rspec>, ["~> 2.8.0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<bundler>, [">= 1.0.0"])
     s.add_dependency(%q<jeweler>, [">= 0"])
+    s.add_dependency(%q<sqlite3>, [">= 0"])
   end
 end
 
