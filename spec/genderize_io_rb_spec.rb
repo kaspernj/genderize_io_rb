@@ -45,4 +45,12 @@ describe "GenderizeIoRb" do
       gir.cache_db.insert(:genderize_io_rb_cache, :name => "kasper")
     }.to raise_error
   end
+  
+  it "should raise errors when a name is not found" do
+    gir = GenderizeIoRb.new
+    
+    expect {
+      gir.info_for_name("ksldfjslkjfweuir")
+    }.to raise_error(GenderizeIoRb::Errors::NameNotFound)
+  end
 end

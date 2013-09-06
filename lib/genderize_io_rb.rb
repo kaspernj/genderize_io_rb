@@ -39,9 +39,12 @@ class GenderizeIoRb
     end
     
     http_res = @http.get("?name=#{CGI.escape(name)}")
+    json_res = JSON.parse(http_res.body)
+    
+    raise GenderizeIoRb::Errors::NameNotFound, "Name was not found on Genderize.io: '#{name}'." unless json_res["gender"]
     
     res = ::GenderizeIoRb::Result.new(
-      :data => JSON.parse(http_res.body),
+      :data => json_res,
       :genderize_io_rb => self
     )
     
