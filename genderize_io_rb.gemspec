@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "genderize_io_rb"
-  s.version = "0.0.7"
+  s.version = "0.0.8"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kasper Johansen"]
-  s.date = "2013-09-06"
+  s.date = "2013-09-12"
   s.description = "A small Gem that makes it possible to determine gender from a name via the Genderize.io service."
   s.email = "kaspernj@gmail.com"
   s.extra_rdoc_files = [
