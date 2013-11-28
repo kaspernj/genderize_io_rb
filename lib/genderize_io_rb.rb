@@ -1,6 +1,6 @@
 require "http2" unless ::Kernel.const_defined?(:Http2)
 require "cgi" unless ::Kernel.const_defined?(:CGI)
-require "json" unless ::Kernel.const_defined?(:JSON)
+require "json" unless ::Kernel.const_defined?(:JSON) && defined?(:JSON::Parser)
 require "string-cases" unless ::Kernel.const_defined?(:StringCases)
 
 class GenderizeIoRb

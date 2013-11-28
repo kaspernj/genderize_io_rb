@@ -6,6 +6,7 @@ source "http://rubygems.org"
 gem "http2"
 gem "json"
 gem "string-cases"
+gem "hashie"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

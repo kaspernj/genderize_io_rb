@@ -50,7 +50,7 @@ GEM
       ruby_process
       tsafe
       wref
-    multi_json (1.7.9)
+    multi_json (1.8.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     nokogiri (1.5.10)
@@ -92,6 +92,7 @@ PLATFORMS
 DEPENDENCIES
   baza (= 0.0.12)
   bundler (>= 1.0.0)
+  hashie
   http2
   jeweler!
   json
