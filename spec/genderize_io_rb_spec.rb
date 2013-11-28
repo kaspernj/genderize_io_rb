@@ -29,7 +29,7 @@ describe "GenderizeIoRb" do
     gir = GenderizeIoRb.new(:cache_db => db)
     
     res = gir.info_for_name("kasper")
-    res.name.should eql("kasper")
+    res.result.name.should eql("kasper")
     
     res = gir.cache_db.select(:genderize_io_rb_cache, {"name" => "kasper"})
     

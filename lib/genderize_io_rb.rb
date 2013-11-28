@@ -83,7 +83,11 @@ class GenderizeIoRb
       @cache_as.write(cache_as_key, http_res.body)
     end
     
-    return {:result => res, :cache_db => @cache_db_res, :cache_as => cache_as_res}
+    return ::GenderizeIoRb::ActiveSupportCacheResult.new({
+      :result => res, 
+      :cache_db => @cache_db_res, 
+      :cache_as => cache_as_res
+    })
   end
   
   def destroy
