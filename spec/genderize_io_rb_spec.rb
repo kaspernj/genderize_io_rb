@@ -1,16 +1,21 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "GenderizeIoRb" do
+  before do
+    @orig_stderr = $stderr
+    $stderr = StringIO.new
+  end
+
   it "can detect various names" do
     gir = GenderizeIoRb.new
     
     res = gir.info_for_name("kasper")
-    res.name.should eql("kasper")
-    res.gender.should eql("male")
+    res.result.name.should eql("kasper")
+    res.result.gender.should eql("male")
     
     res = gir.info_for_name("christina")
-    res.name.should eql("christina")
-    res.gender.should eql("female")
+    res.result.name.should eql("christina")
+    res.result.gender.should eql("female")
     
     gir.destroy
   end
@@ -29,7 +34,7 @@ describe "GenderizeIoRb" do
     gir = GenderizeIoRb.new(:cache_db => db)
     
     res = gir.info_for_name("kasper")
-    res.name.should eql("kasper")
+    res.result.name.should eql("kasper")
     
     res = gir.cache_db.select(:genderize_io_rb_cache, {"name" => "kasper"})
     
@@ -52,5 +57,18 @@ describe "GenderizeIoRb" do
     expect {
       gir.info_for_name("ksldfjslkjfweuir")
     }.to raise_error(GenderizeIoRb::Errors::NameNotFound)
+  end
+  
+  it "can make multiple requests" do
+    gir = GenderizeIoRb.new
+    res = gir.info_for_name(["kasper", "christina", "ksldfjslkjfweuir"])
+    res.result[0].name.should eql("kasper")
+    res.result[1].name.should eql("christina")
+    $stderr.rewind
+    $stderr.string.chomp.should eq("Name was not found on Genderize.io: 'ksldfjslkjfweuir'.")
+  end
+  
+  after do
+    $stderr = @orig_stderr
   end
 end

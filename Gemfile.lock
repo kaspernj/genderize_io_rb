@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/technicalpickles/jeweler.git
-  revision: f7e0a55a207d83f56637dd8fbabf26a803410faf
+  revision: c0e945c2ae7e8a5783ba724d068de1a039119b21
   specs:
-    jeweler (1.8.7)
+    jeweler (1.8.8)
       builder
       bundler (~> 1.0)
       git (>= 1.2.5)
@@ -37,10 +37,10 @@ GEM
       nokogiri (~> 1.5.2)
       oauth2
     hashie (2.0.5)
-    highline (1.6.19)
-    http2 (0.0.22)
+    highline (1.6.20)
+    http2 (0.0.23)
     httpauth (0.2.0)
-    json (1.8.0)
+    json (1.8.1)
     jwt (0.1.8)
       multi_json (>= 1.5)
     knjrbfw (0.0.107)
@@ -50,7 +50,7 @@ GEM
       ruby_process
       tsafe
       wref
-    multi_json (1.7.9)
+    multi_json (1.8.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     nokogiri (1.5.10)
