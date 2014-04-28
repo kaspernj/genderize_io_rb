@@ -1,6 +1,6 @@
 # GenderizeIoRb
 
-Start by adding it to your Gemfile:
+Start by adding it to your Gemfile and bundle it:
 ```ruby
 gem 'genderize_io_rb'
 ```
