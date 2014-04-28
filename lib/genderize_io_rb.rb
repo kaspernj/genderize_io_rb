@@ -30,7 +30,7 @@ class GenderizeIoRb
     @cache_as = args[:cache_as]
   end
   
-  def info_for_name(name)
+  def info_for_name(name, args = {})
     name = name.to_s.strip
     name_lc = name.downcase
     

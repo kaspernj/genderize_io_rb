@@ -9,8 +9,8 @@ Now check a name like this:
 ```ruby
 gir = GenderizeIoRb.new
 res = gir.info_for_name("kasper")
-puts "Name: #{res.name}"
-puts "Gender: #{res.gender}"
+puts "Name: #{res[:result].name}"
+puts "Gender: #{res[:result].gender}"
 ```
 
 # Contributing to genderize_io_rb
