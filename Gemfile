@@ -15,5 +15,5 @@ group :development do
   gem "bundler", ">= 1.0.0"
   gem "jeweler", :git => "https://github.com/technicalpickles/jeweler.git"
   gem "sqlite3"
-  gem "baza", "0.0.12"
+  gem "baza", ">= 0.0.12"
 end
