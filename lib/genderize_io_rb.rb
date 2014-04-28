@@ -48,7 +48,6 @@ class GenderizeIoRb
     cache_as_key = "genderize_io_rb_#{name_lc}"
     if @cache_as
       cache_as_res = @cache_as.read(cache_as_key)
-      puts "CacheAsRes: #{cache_as_res}"
       
       if cache_as_res
         res = ::GenderizeIoRb::Result.new(
