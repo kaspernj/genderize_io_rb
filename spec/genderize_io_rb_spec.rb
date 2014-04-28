@@ -107,4 +107,24 @@ describe "GenderizeIoRb" do
       end
     end
   end
+  
+  it "should automatically chomp up a lot of names to avoid errors" do
+    names = JSON.parse(File.read("#{File.dirname(__FILE__)}/shitload_of_names.json"))
+    names = names.map{ |name| name.slice(1, name.length) }
+    
+    GenderizeIoRb.new do |gir|
+      # Check returning of array.
+      results = gir.info_for_names(names)
+      results.length.should eq names.length
+      
+      
+      # Check yielding works so it is possible to save memory.
+      count = 0
+      gir.info_for_names(names) do |result|
+        count += 1
+      end
+      
+      count.should eq names.length
+    end
+  end
 end

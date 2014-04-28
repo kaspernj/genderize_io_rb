@@ -39,56 +39,63 @@ class GenderizeIoRb
     end
   end
   
-  def info_for_names(names)
+  def info_for_names(names, &blk)
     names_lc = names.map{ |name| name.to_s.strip.downcase }
     results = []
     
+    extract_cache_db_results_from_names(names) if @cache_db
     if @cache_db
       debug "Looking names up in db: #{names_lc}" if @debug
       @cache_db.select(:genderize_io_rb_cache, :name => names_lc) do |data|
         debug "Found in db-cache: #{data}" if @debug
         
-        results << ::GenderizeIoRb::Result.new(
+        result = ::GenderizeIoRb::Result.new(
           :data => JSON.parse(data[:result]),
           :genderize_io_rb => self,
           :from_cache_db => true
         )
         
         raise "Could not delete name: #{data[:name]}" unless names_lc.delete(data[:name]) == data[:name]
+        
+        handle_result(result, results, blk)
       end
     end
     
     unless names_lc.empty?
       debug "Looking names up using an HTTP request: #{names_lc}" if @debug
+      urls = generate_urls_from_names(names_lc)
       
-      url = "?"
-      names_lc.each_with_index do |name, index|
-        url << "&" unless url == "?"
-        url << "name[#{index}]=#{CGI.escape(name)}"
-      end
-      
-      http_result = @http.get(url)
-      json_results = JSON.parse(http_result.body)
-      
-      json_results.each do |json_result|
-        if json_result["gender"] == nil
-          error = GenderizeIoRb::Errors::NameNotFound.new("Name was not found on Genderize.io: '#{json_result["name"]}'.")
-          error.name = json_result["name"]
-          
-          results << error
-        else
-          store_cache_for_name(json_result["name"], json_result)
-          
-          results << ::GenderizeIoRb::Result.new(
-            :data => json_result,
-            :genderize_io_rb => self,
-            :from_http_request => true
-          )
+      # Request all the URL's.
+      urls.each do |url|
+        http_result = @http.get(url)
+        json_results = JSON.parse(http_result.body)
+        
+        json_results.each do |json_result|
+          if json_result["gender"] == nil
+            error = GenderizeIoRb::Errors::NameNotFound.new("Name was not found on Genderize.io: '#{json_result["name"]}'.")
+            error.name = json_result["name"]
+            
+            handle_result(error, results, blk)
+          else
+            store_cache_for_name(json_result["name"], json_result)
+            
+            result = ::GenderizeIoRb::Result.new(
+              :data => json_result,
+              :genderize_io_rb => self,
+              :from_http_request => true
+            )
+            
+            handle_result(result, results, blk)
+          end
         end
       end
     end
     
-    return results
+    if blk
+      return nil
+    else
+      return results
+    end
   end
   
   def info_for_name(name)
@@ -145,6 +152,36 @@ class GenderizeIoRb
   end
   
 private
+  
+  def handle_result(result, results, blk)
+    if blk
+      blk.call(result)
+    else
+      results << result
+    end
+  end
+  
+  def generate_urls_from_names(names_lc)
+    urls = []
+    url = "?"
+    
+    names_lc.each_with_index do |name, index|
+      part = "name[#{index}]=#{CGI.escape(name)}"
+      
+      new_length = part.length + url.length
+      if new_length >= 7000
+        urls << url
+        url = "?"
+      end
+      
+      part.prepend("&") unless url == "?"
+      url << part
+    end
+    
+    urls << url
+    
+    return urls
+  end
 
   def cache_key_for_name(name_lc)
     "genderize_io_rb_#{name_lc}"
