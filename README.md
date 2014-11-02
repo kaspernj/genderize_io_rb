@@ -9,8 +9,40 @@ Now check a name like this:
 ```ruby
 gir = GenderizeIoRb.new
 res = gir.info_for_name("kasper")
-puts "Name: #{res[:result].name}"
-puts "Gender: #{res[:result].gender}"
+puts "Name: #{res.name}"
+puts "Gender: #{res.gender}"
+```
+
+It is also possible to look multiple names up:
+```ruby
+GenderizeIoRb.new do |gir|
+  gir.info_for_names(["kasper", "christina"]).each do |result|
+    puts "Name: #{result.name}"
+    puts "Gender: #{result.gender}"
+  end
+end
+```
+
+You can attach a database-cache through a Baza::Db if Genderize is a bit slow:
+```ruby
+# SQLite3 database will automatically be created with table and everything. If an existing db is given, the table will automatically be created within it.
+Baza::Db.new(:type => "sqlite3", :path => path) do |db|
+  GenderizeIoRb.new(:cache_db => db) do |gir|
+    # First request will be done through a HTTP request:
+    first_result = gir.info_for_name("kasper")
+    puts "Through HTTP?: #{first_result.from_http_request?}"
+    
+    # Second result will be done by a
+    second_result = gir.info_for_name("kasper")
+    puts "Through DB cache? #{second_result.from_cache_db?}"
+  end
+end
+```
+
+If you need the connections to be kept open:
+```ruby
+db = Baza::Db.new(:type => "sqlite3", :path => path)
+gir = GenderizeIoRb.new(:cache_db => db)
 ```
 
 # Contributing to genderize_io_rb

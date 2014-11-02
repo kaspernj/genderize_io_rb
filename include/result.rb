@@ -26,4 +26,12 @@ class GenderizeIoRb::Result
   def to_s
     return "#<GenderizeIoRb::Result::#{@args[:data]}>"
   end
+  
+  def from_http_request?
+    return @args[:from_http_request]
+  end
+  
+  def from_cache_db?
+    return @args[:from_cache_db]
+  end
 end

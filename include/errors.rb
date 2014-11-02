@@ -1,3 +1,5 @@
 class GenderizeIoRb::Errors
-  class NameNotFound < RuntimeError; end
+  class NameNotFound < RuntimeError
+    attr_accessor :name
+  end
 end
