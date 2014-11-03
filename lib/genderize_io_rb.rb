@@ -20,12 +20,12 @@ class GenderizeIoRb
 
     @debug = args[:debug]
     @args = args
-    @http = Http2.new(:host => "api.genderize.io")
+    @http = Http2.new(host: "api.genderize.io")
 
     # Make sure the database-version is up-to-date.
     @cache_db = args[:cache_db]
     if @cache_db
-      Baza::Revision.new.init_db(:db => @cache_db, :schema => GenderizeIoRb::DatabaseSchema::SCHEMA)
+      Baza::Revision.new.init_db(db: @cache_db, schema: GenderizeIoRb::DatabaseSchema::SCHEMA)
     end
 
     @cache_as = args[:cache_as]
@@ -46,13 +46,13 @@ class GenderizeIoRb
     extract_cache_db_results_from_names(names) if @cache_db
     if @cache_db
       debug "Looking names up in db: #{names_lc}" if @debug
-      @cache_db.select(:genderize_io_rb_cache, :name => names_lc) do |data|
+      @cache_db.select(:genderize_io_rb_cache, name: names_lc) do |data|
         debug "Found in db-cache: #{data}" if @debug
 
         result = ::GenderizeIoRb::Result.new(
-          :data => JSON.parse(data[:result]),
-          :genderize_io_rb => self,
-          :from_cache_db => true
+          data: JSON.parse(data[:result]),
+          genderize_io_rb: self,
+          from_cache_db: true
         )
 
         raise "Could not delete name: #{data[:name]}" unless names_lc.delete(data[:name]) == data[:name]
@@ -80,9 +80,9 @@ class GenderizeIoRb
             store_cache_for_name(json_result["name"], json_result)
 
             result = ::GenderizeIoRb::Result.new(
-              :data => json_result,
-              :genderize_io_rb => self,
-              :from_http_request => true
+              data: json_result,
+              genderize_io_rb: self,
+              from_http_request: true
             )
 
             handle_result(result, results, blk)
@@ -103,12 +103,12 @@ class GenderizeIoRb
 
     # If a database-cache is enabled, try to look result up there first.
     if @cache_db
-      cache_db_res = @cache_db.single(:genderize_io_rb_cache, :name => name_lc)
+      cache_db_res = @cache_db.single(:genderize_io_rb_cache, name: name_lc)
       if cache_db_res
         res = ::GenderizeIoRb::Result.new(
-          :data => JSON.parse(cache_db_res[:result]),
-          :genderize_io_rb => self,
-          :from_cache_db => true
+          data: JSON.parse(cache_db_res[:result]),
+          genderize_io_rb: self,
+          from_cache_db: true
         )
       end
     end
@@ -118,9 +118,9 @@ class GenderizeIoRb
 
       if cache_as_res
         res = ::GenderizeIoRb::Result.new(
-          :data => JSON.parse(cache_as_res),
-          :genderize_io_rb => self,
-          :from_cache_as => true
+          data: JSON.parse(cache_as_res),
+          genderize_io_rb: self,
+          from_cache_as: true
         )
       end
     end
@@ -132,9 +132,9 @@ class GenderizeIoRb
       raise GenderizeIoRb::Errors::NameNotFound, "Name was not found on Genderize.io: '#{name_lc}'." unless json_res["gender"]
 
       res = ::GenderizeIoRb::Result.new(
-        :data => json_res,
-        :genderize_io_rb => self,
-        :from_http_request => true
+        data: json_res,
+        genderize_io_rb: self,
+        from_http_request: true
       )
       store_cache_for_name(name_lc, json_res)
     end
@@ -193,9 +193,9 @@ private
     # Save result to the database cache.
     if @cache_db
       debug "Upserting into cache '#{name_lc}': #{json_result}" if @debug
-      @cache_db.upsert(:genderize_io_rb_cache, {:name => name_lc}, {
-        :result => JSON.generate(json_result),
-        :created_at => Time.now
+      @cache_db.upsert(:genderize_io_rb_cache, {name: name_lc}, {
+        result: JSON.generate(json_result),
+        created_at: Time.now
       })
     end
 
