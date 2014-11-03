@@ -199,8 +199,9 @@ private
       })
     end
 
-    if @cache_as && !cache_as_res
-      @cache_as.write(cache_key_for_name(name_lc), http_res.body)
+    if @cache_as
+      cache_as_res = @cache_as.read(cache_key_for_name(name_lc))
+      @cache_as.write(cache_key_for_name(name_lc), JSON.generate(json_result))
     end
   end
 
