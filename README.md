@@ -1,3 +1,7 @@
+[![Code Climate](https://codeclimate.com/github/kaspernj/genderize_io_rb/badges/gpa.svg)](https://codeclimate.com/github/kaspernj/genderize_io_rb)
+[![Test Coverage](https://codeclimate.com/github/kaspernj/genderize_io_rb/badges/coverage.svg)](https://codeclimate.com/github/kaspernj/genderize_io_rb)
+[![Build Status](https://api.shippable.com/projects/540e7b9a3479c5ea8f9ec210/badge?branchName=master)](https://app.shippable.com/projects/540e7b9a3479c5ea8f9ec210/builds/latest)
+
 # GenderizeIoRb
 
 Start by adding it to your Gemfile and bundle it:
