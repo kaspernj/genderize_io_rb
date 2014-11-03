@@ -1,3 +1,7 @@
+[![Code Climate](https://codeclimate.com/github/kaspernj/genderize_io_rb/badges/gpa.svg)](https://codeclimate.com/github/kaspernj/genderize_io_rb)
+[![Test Coverage](https://codeclimate.com/github/kaspernj/genderize_io_rb/badges/coverage.svg)](https://codeclimate.com/github/kaspernj/genderize_io_rb)
+[![Build Status](https://api.shippable.com/projects/540e7b9a3479c5ea8f9ec210/badge?branchName=master)](https://app.shippable.com/projects/540e7b9a3479c5ea8f9ec210/builds/latest)
+
 # GenderizeIoRb
 
 Start by adding it to your Gemfile and bundle it:
@@ -26,12 +30,12 @@ end
 You can attach a database-cache through a Baza::Db if Genderize is a bit slow:
 ```ruby
 # SQLite3 database will automatically be created with table and everything. If an existing db is given, the table will automatically be created within it.
-Baza::Db.new(:type => "sqlite3", :path => path) do |db|
-  GenderizeIoRb.new(:cache_db => db) do |gir|
+Baza::Db.new(type: "sqlite3", path: path) do |db|
+  GenderizeIoRb.new(cache_db: db) do |gir|
     # First request will be done through a HTTP request:
     first_result = gir.info_for_name("kasper")
     puts "Through HTTP?: #{first_result.from_http_request?}"
-    
+
     # Second result will be done by a
     second_result = gir.info_for_name("kasper")
     puts "Through DB cache? #{second_result.from_cache_db?}"
@@ -41,12 +45,12 @@ end
 
 If you need the connections to be kept open:
 ```ruby
-db = Baza::Db.new(:type => "sqlite3", :path => path)
-gir = GenderizeIoRb.new(:cache_db => db)
+db = Baza::Db.new(type: "sqlite3", path: path)
+gir = GenderizeIoRb.new(cache_db: db)
 ```
 
 # Contributing to genderize_io_rb
- 
+
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it.
 * Fork the project.
