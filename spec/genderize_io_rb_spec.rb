@@ -26,7 +26,7 @@ describe "GenderizeIoRb" do
     require "sqlite3"
 
     Baza::Db.new(type: "sqlite3", path: "#{Dir.tmpdir}/genderize_io_rb_spec_#{Time.now.to_f.to_s}.sqlite3", debug: false) do |db|
-      GenderizeIoRb.new(:cache_db => db) do |gir|
+      GenderizeIoRb.new(cache_db: db) do |gir|
         res = gir.info_for_name("kasper")
         res.name.should eq "kasper"
         res.from_http_request?.should eq true
