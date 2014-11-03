@@ -17,3 +17,7 @@ group :development do
   gem "sqlite3"
   gem "baza", ">= 0.0.12"
 end
+
+group :test do
+  gem "codeclimate-test-reporter", group: :test, require: nil
+end
